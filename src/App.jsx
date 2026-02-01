@@ -16,13 +16,13 @@ const pastelGradients = [
 ];
 
 const HeartProgressBar = ({ total, filled }) => (
-  <div className="fixed right-4 top-4 md:right-8 md:top-8 flex flex-col gap-4 z-50">
-    <div className="bg-white/20 backdrop-blur-sm p-3 rounded-full shadow-lg border border-white/30 flex flex-col gap-3">
+  <div className="fixed top-6 right-6 z-50">
+    <div className="bg-white/30 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/40 flex flex-row gap-2">
       {[...Array(total)].map((_, i) => (
         <div key={i} className="relative">
           <Heart
-            size={24}
-            className={`transition-all duration-500 ${i < filled ? 'fill-love-500 text-love-500 scale-110 drop-shadow-[0_0_10px_rgba(236,72,153,0.5)]' : 'text-white/60 scale-100'}`}
+            size={28}
+            className={`transition-all duration-500 ${i < filled ? 'fill-red-500 text-red-500 scale-125 drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]' : 'text-white/70 scale-100'}`}
           />
         </div>
       ))}
