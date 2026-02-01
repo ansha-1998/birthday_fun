@@ -2,7 +2,46 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart } from 'lucide-react';
 
-const QuestionCard = ({ question, onYes }) => {
+const LegsAnimation = ({ isRunning }) => (
+    <AnimatePresence>
+        {isRunning && (
+            <motion.div
+                initial={{ opacity: 1, y: -20, scale: 0.5 }}
+                animate={{ opacity: 1, y: 10, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+                className="absolute top-[55%] left-1/2 -translate-x-1/2 -z-10 pointer-events-none"
+            >
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <motion.path
+                        d="M25 5 L25 45 L10 45"
+                        stroke="black"
+                        strokeWidth="4"
+                        strokeLinecap="round"
+                        fill="none"
+                        initial={{ rotate: 0 }}
+                        animate={{ rotate: [0, 30, -30, 0] }}
+                        transition={{ duration: 0.3, repeat: Infinity, ease: "linear" }}
+                        style={{ originX: "25px", originY: "5px" }}
+                    />
+                    <motion.path
+                        d="M35 5 L35 45 L50 45"
+                        stroke="black"
+                        strokeWidth="4"
+                        strokeLinecap="round"
+                        fill="none"
+                        initial={{ rotate: 0 }}
+                        animate={{ rotate: [0, -30, 30, 0] }}
+                        transition={{ duration: 0.3, repeat: Infinity, ease: "linear", delay: 0.15 }}
+                        style={{ originX: "35px", originY: "5px" }}
+                    />
+                </svg>
+            </motion.div>
+        )}
+    </AnimatePresence>
+);
+
+const QuestionCard = ({ question, onYes, index }) => {
+    const isTrickQuestion = index === 1; // 2nd question (0-indexed)
     const [noBtnPosition, setNoBtnPosition] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
 
@@ -107,66 +146,53 @@ const QuestionCard = ({ question, onYes }) => {
             </h2>
 
             <div className="flex justify-center gap-8 relative z-10 min-h-[60px]">
+                {/* YES BUTTON */}
                 <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={onYes}
-                    className="bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors text-xl flex items-center gap-2"
+                    // Logic: If trick question, this button runs away. Otherwise standard.
+                    {...(isTrickQuestion ? {
+                        key: `yes-btn-trick-${question}`,
+                        ref: noBtnRef, // Use the running ref
+                        animate: style.position === 'fixed' ? { left: style.left, top: style.top } : { x: 0 },
+                        style: style.position === 'fixed' ? { position: 'fixed', margin: 0 } : {},
+                        transition: { type: "spring", stiffness: 200, damping: 20 },
+                        onMouseEnter: moveNoButton,
+                        onTouchStart: moveNoButton,
+                        onClick: moveNoButton,
+                        className: "bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors text-xl flex items-center gap-2 z-50 whitespace-nowrap relative overflow-visible"
+                    } : {
+                        whileHover: { scale: 1.1 },
+                        whileTap: { scale: 0.95 },
+                        onClick: onYes,
+                        className: "bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors text-xl flex items-center gap-2"
+                    })}
                 >
+                    {isTrickQuestion && <LegsAnimation isRunning={isRunning} />}
                     <Heart size={20} className="fill-current" />
                     Yes
                 </motion.button>
 
+                {/* NO BUTTON */}
                 <motion.button
-                    key={`no-btn-${question}`}
-                    ref={noBtnRef}
-                    animate={style.position === 'fixed' ? { left: style.left, top: style.top } : { x: 0 }}
-                    style={style.position === 'fixed' ? { position: 'fixed', margin: 0 } : {}}
-                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    onMouseEnter={moveNoButton}
-                    onTouchStart={moveNoButton}
-                    onClick={moveNoButton}
-                    className="bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors text-xl flex items-center gap-2 z-50 whitespace-nowrap relative overflow-visible"
+                    {...(isTrickQuestion ? {
+                        // If trick question, this button acts as the "Yes" (safe) button
+                        whileHover: { scale: 1.1 },
+                        whileTap: { scale: 0.95 },
+                        onClick: onYes, // Proceed to next
+                        className: "bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors text-xl flex items-center gap-2"
+                    } : {
+                        // Otherwise, this is the running button
+                        key: `no-btn-${question}`,
+                        ref: noBtnRef,
+                        animate: style.position === 'fixed' ? { left: style.left, top: style.top } : { x: 0 },
+                        style: style.position === 'fixed' ? { position: 'fixed', margin: 0 } : {},
+                        transition: { type: "spring", stiffness: 200, damping: 20 },
+                        onMouseEnter: moveNoButton,
+                        onTouchStart: moveNoButton,
+                        onClick: moveNoButton,
+                        className: "bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors text-xl flex items-center gap-2 z-50 whitespace-nowrap relative overflow-visible"
+                    })}
                 >
-                    {/* Animated Cartoon Legs */}
-                    <AnimatePresence>
-                        {isRunning && (
-                            <motion.div
-                                initial={{ opacity: 1, y: -20, scale: 0.5 }}
-                                animate={{ opacity: 1, y: 10, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0 }}
-                                className="absolute top-[55%] left-1/2 -translate-x-1/2 -z-10 pointer-events-none"
-                            >
-                                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    {/* Left Leg */}
-                                    <motion.path
-                                        d="M25 5 L25 45 L10 45"
-                                        stroke="black"
-                                        strokeWidth="4"
-                                        strokeLinecap="round"
-                                        fill="none"
-                                        initial={{ rotate: 0 }}
-                                        animate={{ rotate: [0, 30, -30, 0] }}
-                                        transition={{ duration: 0.3, repeat: Infinity, ease: "linear" }}
-                                        style={{ originX: "25px", originY: "5px" }}
-                                    />
-                                    {/* Right Leg */}
-                                    <motion.path
-                                        d="M35 5 L35 45 L50 45"
-                                        stroke="black"
-                                        strokeWidth="4"
-                                        strokeLinecap="round"
-                                        fill="none"
-                                        initial={{ rotate: 0 }}
-                                        animate={{ rotate: [0, -30, 30, 0] }}
-                                        transition={{ duration: 0.3, repeat: Infinity, ease: "linear", delay: 0.15 }}
-                                        style={{ originX: "35px", originY: "5px" }}
-                                    />
-                                </svg>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-
+                    {!isTrickQuestion && <LegsAnimation isRunning={isRunning} />}
                     <Heart size={20} className="fill-current" />
                     No
                 </motion.button>

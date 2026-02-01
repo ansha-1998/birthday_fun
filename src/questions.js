@@ -5,7 +5,7 @@ export const questions = [
     },
     {
         id: 2,
-        text: "I dont want gift",
+        text: "Do you want a gift?",
     },
     {
         id: 3,

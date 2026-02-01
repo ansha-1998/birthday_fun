@@ -40,6 +40,7 @@ function App() {
           <QuestionCard
             key={currentQuestionIndex}
             question={questions[currentQuestionIndex].text}
+            index={currentQuestionIndex}
             onYes={handleYes}
           />
         ) : (
