@@ -174,6 +174,7 @@ const BirthdayCard = () => {
                         </div>
 
                     </div>
+                </motion.div>
             </div>
 
         </div>,
