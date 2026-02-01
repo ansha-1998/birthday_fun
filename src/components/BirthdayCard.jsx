@@ -173,9 +173,9 @@ const BirthdayCard = () => {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 1.2 }}
-                                className="mt-4 p-4 bg-white/50 rounded-lg border border-love-100 shadow-sm"
+                                className="mt-4 text-center"
                             >
-                                <p className="text-sm md:text-base text-love-800 font-medium leading-relaxed font-serif">
+                                <p className="text-sm md:text-base text-love-900 font-medium leading-relaxed font-serif italic">
                                     "On your special day, I just want to remind you how incredibly loved you are. You bring so much joy, warmth, and laughter into my life. Here's to celebrating you today and always. I love you! 💕"
                                 </p>
                             </motion.div>
