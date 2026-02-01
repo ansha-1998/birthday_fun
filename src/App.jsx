@@ -7,11 +7,11 @@ import CustomHeart from './components/CustomHeart';
 import { Heart } from 'lucide-react';
 
 const pastelGradients = [
-  "bg-gradient-to-br from-rose-100 via-pink-200 to-orange-100",
-  "bg-gradient-to-br from-blue-100 via-sky-200 to-cyan-100",
-  "bg-gradient-to-br from-violet-100 via-purple-200 to-fuchsia-100",
-  "bg-gradient-to-br from-green-100 via-emerald-200 to-teal-100",
-  "bg-gradient-to-br from-yellow-100 via-amber-200 to-orange-100"
+  "bg-gradient-to-br from-rose-300 via-pink-400 to-orange-200",
+  "bg-gradient-to-br from-blue-300 via-sky-400 to-cyan-200",
+  "bg-gradient-to-br from-violet-300 via-purple-400 to-fuchsia-200",
+  "bg-gradient-to-br from-green-300 via-emerald-400 to-teal-200",
+  "bg-gradient-to-br from-yellow-200 via-amber-300 to-orange-200"
 ];
 
 

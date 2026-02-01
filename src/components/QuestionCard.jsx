@@ -131,7 +131,7 @@ const QuestionCard = ({ question, onYes, index }) => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-3xl w-full text-center relative z-20"
+            className="max-w-5xl w-full text-center relative z-20"
         >
             {/* Removed internal decoration, using main background */}
 
@@ -152,7 +152,7 @@ const QuestionCard = ({ question, onYes, index }) => {
                 {question}
             </h2>
 
-            <div className="flex justify-center gap-48 relative z-10 min-h-[80px]">
+            <div className="flex justify-between px-16 md:px-32 relative z-10 min-h-[80px]">
                 {/* YES BUTTON */}
                 <motion.button
                     // Logic: If trick question, this button runs away. Otherwise standard.
