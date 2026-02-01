@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Music, Quote } from 'lucide-react';
+import { Heart, Music, Stamp } from 'lucide-react';
 
 const CustomHeart = ({ delay, style }) => (
     <motion.div
@@ -71,12 +71,11 @@ const BirthdayCard = () => {
     }, []);
 
     return createPortal(
-        <div className="fixed top-0 left-0 w-full h-full bg-love-50 flex flex-col z-[9999] overflow-hidden">
+        <div className="fixed top-0 left-0 w-full h-full bg-stone-100 flex flex-col z-[9999] overflow-hidden font-sans">
             <audio ref={audioRef} src={`${import.meta.env.BASE_URL}song.mp3`} loop />
 
             {[...Array(20)].map((_, i) => (
                 <CustomHeart
-                    // ... (rest of the content remains the same structure but ensuring high Z-index)
                     key={i}
                     delay={i * 0.5}
                     style={{
@@ -86,90 +85,96 @@ const BirthdayCard = () => {
                 />
             ))}
 
-            {/* Header - Absolute Top - Simplified */}
-            <div className="absolute top-0 w-full p-4 z-30 flex justify-center pointer-events-none">
-                <motion.h1
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 1 }}
-                    className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg font-[Inter] bg-black/30 px-6 py-2 rounded-full backdrop-blur-md"
-                >
-                    Happy Birthday My Love! ❤️
-                </motion.h1>
-            </div>
+            {/* Main Container - The Inland Letter */}
+            <div className="flex w-full h-full p-4 md:p-12 items-center justify-center">
 
-            {/* Main Content Split - Full Height */}
-            <motion.div
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.8, ease: "backOut" }}
-                className="flex w-full h-full pt-20 pb-4 px-8 gap-6 box-border bg-white/80 m-4 md:m-8 rounded-[3rem] shadow-2xl border-4 border-love-200 overflow-hidden relative"
-            >
-                {/* Envelope Effect Overlay (Optional sophisticated touch) */}
-                <div className="absolute top-0 left-0 w-full h-4 bg-love-300 opacity-50"></div>
-
-                {/* Left: Image (Majority) */}
-                <div className="flex-1 relative bg-black/5 rounded-3xl overflow-hidden border-2 border-love-100 group">
-                    <AnimatePresence mode='wait'>
-                        <motion.img
-                            key={currentImage}
-                            src={`${import.meta.env.BASE_URL}images/${currentImage + 1}.jpeg`}
-                            alt={`Memory ${currentImage + 1}`}
-                            initial={{ opacity: 0, scale: 1.1 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 1.2 }}
-                            className="w-full h-full object-contain md:object-cover" // Contain ensures full image seen if ratio differs
-                            onError={(e) => { e.target.style.display = 'none'; }}
-                        />
-                    </AnimatePresence>
-
-                    <div className="absolute top-4 left-4 bg-black/40 text-white px-3 py-1 rounded-full text-xs backdrop-blur-md">
-                        {currentImage + 1} / {totalImages}
-                    </div>
-                </div>
-
-                {/* Right: Comments (Vertical Sidebar) */}
-                <div className="w-80 lg:w-96 flex-shrink-0 flex flex-col justify-center h-full bg-white/40 backdrop-blur-xl rounded-3xl border-2 border-white/60 p-4 shadow-xl ml-4">
-                    <AnimatePresence mode='wait'>
-                        <motion.div
-                            key={currentImage}
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: 50 }}
-                            transition={{ duration: 0.5 }}
-                            className="h-full flex flex-col justify-center items-center text-center relative"
-                        >
-                            <Quote className="text-love-500 w-10 h-10 mb-4" />
-
-                            <h3 className="text-love-600 font-bold text-sm mb-4 uppercase tracking-widest">Memory #{currentImage + 1}</h3>
-
-                            <p className="text-xl lg:text-2xl font-[Inter] text-gray-800 font-medium leading-relaxed italic">
-                                "{captions[currentImage % captions.length]}"
-                            </p>
-
-                            <div className="mt-8 flex gap-2 text-love-400 justify-center">
-                                <Heart className="fill-current w-5 h-5 animate-pulse" />
-                                <Heart className="fill-current w-5 h-5 animate-pulse delay-75" />
-                            </div>
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
-            </motion.div>
-
-            {/* Mobile Footer Comment (Only visible on small screens where sidebar is hidden) */}
-            <div className="md:hidden absolute bottom-4 w-full px-4 z-30">
                 <motion.div
-                    key={currentImage}
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    className="bg-white/80 backdrop-blur-md p-4 rounded-xl shadow-lg text-center"
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="w-full max-w-6xl h-full md:h-[85vh] bg-[#E0F7FA] shadow-2xl relative flex flex-col md:flex-row overflow-hidden border-2 border-cyan-200"
+                    style={{
+                        backgroundImage: 'repeating-linear-gradient(#E0F7FA 0px, #E0F7FA 24px, #B2EBF2 25px)'
+                    }}
                 >
-                    <p className="text-love-600 font-medium">"{captions[currentImage % captions.length]}"</p>
-                </motion.div>
-            </div>
+                    {/* Inland Letter Aesthetics: Top and Bottom Fold Lines (if printed) or decorative edges */}
+                    <div className="absolute top-0 w-full h-6 bg-[#B2EBF2] border-b border-dashed border-cyan-400 opacity-60"></div>
+                    <div className="absolute bottom-0 w-full h-6 bg-[#B2EBF2] border-t border-dashed border-cyan-400 opacity-60"></div>
 
-            {/* Removed Music Text */}
+                    {/* Left Side: Photos (The "Enclosure") */}
+                    <div className="w-full md:w-[60%] h-1/2 md:h-full relative p-6 md:p-10 flex items-center justify-center border-b-2 md:border-b-0 md:border-r-2 border-dashed border-cyan-400 bg-[#E0F7FA]">
+                        {/* Photo Frame Effect */}
+                        <div className="relative w-full h-full max-h-[600px] bg-white p-3 shadow-lg rotate-1 transform transition-transform hover:rotate-0">
+                            <div className="w-full h-full overflow-hidden bg-gray-100 relative">
+                                <AnimatePresence mode='wait'>
+                                    <motion.img
+                                        key={currentImage}
+                                        src={`${import.meta.env.BASE_URL}images/${currentImage + 1}.jpeg`}
+                                        alt={`Memory ${currentImage + 1}`}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 1 }}
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => { e.target.style.display = 'none'; }}
+                                    />
+                                </AnimatePresence>
+                            </div>
+                            {/* Tape effect */}
+                            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-white/40 backdrop-blur-sm border border-white/50 rotate-[-2deg] shadow-sm"></div>
+                        </div>
+                    </div>
+
+                    {/* Right Side: The Letter Content (Handwritten style) */}
+                    <div className="w-full md:w-[40%] h-1/2 md:h-full p-8 md:p-12 relative flex flex-col justify-between bg-[#E0F7FA]">
+
+                        {/* Stamp Area (Top Right Corner) */}
+                        <div className="absolute top-6 right-6 flex flex-col items-center opacity-70 rotate-6">
+                            <div className="w-20 h-24 border-4 border-dotted border-red-800 p-2 flex items-center justify-center">
+                                <Stamp className="text-red-800 w-12 h-12" />
+                            </div>
+                            <span className="text-xs font-mono text-red-800 mt-1">VIA AIR MAIL</span>
+                        </div>
+
+                        {/* Letter Body */}
+                        <div className="mt-20 md:mt-32 flex-1 flex flex-col gap-6">
+
+                            <motion.div
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                <h2 className="text-3xl md:text-4xl font-bold text-blue-900 font-[Cursive,seriff] mb-2" style={{ fontFamily: 'Brush Script MT, cursive' }}>
+                                    Dearest Love,
+                                </h2>
+                                <h1 className="text-4xl md:text-5xl font-extrabold text-[#D32F2F] drop-shadow-sm mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+                                    Happy Birthday! ❤️
+                                </h1>
+                            </motion.div>
+
+                            <AnimatePresence mode='wait'>
+                                <motion.div
+                                    key={currentImage}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.5 }}
+                                    className="text-xl md:text-2xl text-slate-800 leading-relaxed italic"
+                                    style={{ fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif' }} // Informal handwriting style
+                                >
+                                    "{captions[currentImage % captions.length]}"
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Footer / Signature */}
+                        <div className="mt-8 text-right">
+                            <p className="text-blue-800 font-medium text-lg">Yours Forever,</p>
+                            <p className="text-blue-900 font-bold text-xl" style={{ fontFamily: 'Brush Script MT, cursive' }}>Ansha</p>
+                        </div>
+
+                    </div>
+            </div>
 
         </div>,
         document.body
