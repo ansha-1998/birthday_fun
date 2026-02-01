@@ -102,7 +102,8 @@ const BirthdayCard = () => {
                     <div className="absolute bottom-0 w-full h-6 bg-[#B2EBF2] border-t border-dashed border-cyan-400 opacity-60"></div>
 
                     {/* Left Side: Photos (The "Enclosure") */}
-                    <div className="w-full md:w-[60%] h-1/2 md:h-full relative p-6 md:p-10 flex items-center justify-center border-b-2 md:border-b-0 md:border-r-2 border-dashed border-cyan-400 bg-[#E0F7FA]">
+                    {/* Left Side: Photos (The "Enclosure") - Now 75% Width */}
+                    <div className="w-full md:w-[75%] h-1/2 md:h-full relative p-4 flex items-center justify-center border-b-2 md:border-b-0 md:border-r-2 border-dashed border-cyan-400 bg-[#E0F7FA]">
                         {/* Photo Frame Effect */}
                         <div className="relative w-full h-full max-h-[600px] bg-white p-3 shadow-lg rotate-1 transform transition-transform hover:rotate-0">
                             <div className="w-full h-full overflow-hidden bg-gray-100 relative">
@@ -115,7 +116,7 @@ const BirthdayCard = () => {
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
                                         transition={{ duration: 1 }}
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-full object-contain"
                                         onError={(e) => { e.target.style.display = 'none'; }}
                                     />
                                 </AnimatePresence>
@@ -126,28 +127,29 @@ const BirthdayCard = () => {
                     </div>
 
                     {/* Right Side: The Letter Content (Handwritten style) */}
-                    <div className="w-full md:w-[40%] h-1/2 md:h-full p-8 md:p-12 relative flex flex-col justify-between bg-[#E0F7FA]">
+                    {/* Right Side: The Letter Content (Handwritten style) - Now 25% Width */}
+                    <div className="w-full md:w-[25%] h-1/2 md:h-full p-4 relative flex flex-col justify-center bg-[#E0F7FA]">
 
                         {/* Stamp Area (Top Right Corner) */}
-                        <div className="absolute top-6 right-6 flex flex-col items-center opacity-70 rotate-6">
+                        {/* Stamp Area - Scaled down for narrower column */}
+                        <div className="absolute top-4 right-4 flex flex-col items-center opacity-70 rotate-6 scale-75 origin-top-right">
                             <div className="w-20 h-24 border-4 border-dotted border-red-800 p-2 flex items-center justify-center">
                                 <Stamp className="text-red-800 w-12 h-12" />
                             </div>
                             <span className="text-xs font-mono text-red-800 mt-1">VIA AIR MAIL</span>
                         </div>
 
-                        {/* Letter Body */}
-                        <div className="mt-20 md:mt-32 flex-1 flex flex-col gap-6">
-
+                        {/* Letter Body - Compact for narrow column */}
+                        <div className="mt-12 flex-1 flex flex-col justify-center gap-4">
                             <motion.div
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.5 }}
                             >
-                                <h2 className="text-3xl md:text-4xl font-bold text-blue-900 font-[Cursive,seriff] mb-2" style={{ fontFamily: 'Brush Script MT, cursive' }}>
+                                <h2 className="text-xl md:text-2xl font-bold text-blue-900 font-[Cursive,seriff] mb-1" style={{ fontFamily: 'Brush Script MT, cursive' }}>
                                     Dearest Love,
                                 </h2>
-                                <h1 className="text-4xl md:text-5xl font-extrabold text-[#D32F2F] drop-shadow-sm mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+                                <h1 className="text-2xl md:text-3xl font-extrabold text-[#D32F2F] drop-shadow-sm mb-4" style={{ fontFamily: 'Georgia, serif' }}>
                                     Happy Birthday! ❤️
                                 </h1>
                             </motion.div>
@@ -159,8 +161,8 @@ const BirthdayCard = () => {
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.5 }}
-                                    className="text-xl md:text-2xl text-slate-800 leading-relaxed italic"
-                                    style={{ fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif' }} // Informal handwriting style
+                                    className="text-lg md:text-xl text-slate-800 leading-snug italic"
+                                    style={{ fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif' }}
                                 >
                                     "{captions[currentImage % captions.length]}"
                                 </motion.div>
