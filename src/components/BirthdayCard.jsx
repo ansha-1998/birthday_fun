@@ -86,11 +86,12 @@ const BirthdayCard = () => {
                 />
             ))}
 
-            {/* Header - Absolute Top */}
+            {/* Header - Absolute Top - Simplified */}
             <div className="absolute top-0 w-full p-4 z-30 flex justify-center pointer-events-none">
                 <motion.h1
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1 }}
                     className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg font-[Inter] bg-black/30 px-6 py-2 rounded-full backdrop-blur-md"
                 >
                     Happy Birthday My Love! ❤️
@@ -98,10 +99,17 @@ const BirthdayCard = () => {
             </div>
 
             {/* Main Content Split - Full Height */}
-            <div className="flex w-full h-full pt-20 pb-4 px-8 gap-6 box-border">
+            <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: "backOut" }}
+                className="flex w-full h-full pt-20 pb-4 px-8 gap-6 box-border bg-white/80 m-4 md:m-8 rounded-[3rem] shadow-2xl border-4 border-love-200 overflow-hidden relative"
+            >
+                {/* Envelope Effect Overlay (Optional sophisticated touch) */}
+                <div className="absolute top-0 left-0 w-full h-4 bg-love-300 opacity-50"></div>
 
                 {/* Left: Image (Majority) */}
-                <div className="flex-1 relative bg-black/10 rounded-3xl overflow-hidden shadow-2xl border-4 border-white/50 group">
+                <div className="flex-1 relative bg-black/5 rounded-3xl overflow-hidden border-2 border-love-100 group">
                     <AnimatePresence mode='wait'>
                         <motion.img
                             key={currentImage}
@@ -147,7 +155,7 @@ const BirthdayCard = () => {
                         </motion.div>
                     </AnimatePresence>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Mobile Footer Comment (Only visible on small screens where sidebar is hidden) */}
             <div className="md:hidden absolute bottom-4 w-full px-4 z-30">
@@ -161,9 +169,7 @@ const BirthdayCard = () => {
                 </motion.div>
             </div>
 
-            <div className="absolute bottom-2 right-4 text-love-600/60 text-xs flex items-center gap-1 z-20">
-                <Music size={12} className="animate-spin-slow" /> playing song.mp3
-            </div>
+            {/* Removed Music Text */}
 
         </div>,
         document.body
