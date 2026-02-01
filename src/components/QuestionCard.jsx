@@ -18,7 +18,8 @@ const QuestionCard = ({ question, onYes }) => {
 
     const moveNoButton = (e) => {
         setIsRunning(true);
-        setTimeout(() => setIsRunning(false), 500);
+        // Keep legs running a bit longer
+        setTimeout(() => setIsRunning(false), 1000);
 
         const btn = noBtnRef.current;
         if (!btn) return;
@@ -125,26 +126,33 @@ const QuestionCard = ({ question, onYes }) => {
                     onMouseEnter={moveNoButton}
                     onTouchStart={moveNoButton}
                     onClick={moveNoButton}
-                    className="bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors text-xl flex items-center gap-2 z-50 whitespace-nowrap relative"
+                    className="bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors text-xl flex items-center gap-2 z-50 whitespace-nowrap relative overflow-visible"
                 >
                     {/* Animated Cartoon Legs */}
                     <AnimatePresence>
                         {isRunning && (
                             <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex gap-1 justify-center -z-10"
+                                initial={{ opacity: 1, y: -20, scale: 0 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0 }}
+                                className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-2 justify-center"
+                                style={{ pointerEvents: 'none' }} // Ensure clicks go through to button if needed, though button moves
                             >
                                 <motion.div
-                                    className="w-1.5 h-6 bg-black rounded-full origin-top"
-                                    animate={{ rotate: [0, 45, -45, 0], height: [24, 20, 24] }}
-                                    transition={{ duration: 0.15, repeat: Infinity }}
+                                    className="w-2 h-8 bg-black rounded-full origin-top border-2 border-white/20"
+                                    animate={{
+                                        rotate: [0, 60, -60, 0],
+                                        height: [32, 24, 32]
+                                    }}
+                                    transition={{ duration: 0.1, repeat: Infinity }}
                                 />
                                 <motion.div
-                                    className="w-1.5 h-6 bg-black rounded-full origin-top"
-                                    animate={{ rotate: [0, -45, 45, 0], height: [24, 20, 24] }}
-                                    transition={{ duration: 0.15, repeat: Infinity, delay: 0.07 }}
+                                    className="w-2 h-8 bg-black rounded-full origin-top border-2 border-white/20"
+                                    animate={{
+                                        rotate: [0, -60, 60, 0],
+                                        height: [32, 24, 32]
+                                    }}
+                                    transition={{ duration: 0.1, repeat: Infinity, delay: 0.05 }}
                                 />
                             </motion.div>
                         )}
