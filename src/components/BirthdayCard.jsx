@@ -140,7 +140,7 @@ const BirthdayCard = () => {
                         <div className="h-24"></div>
 
                         {/* Letter Content */}
-                        <div className="flex-1 flex flex-col gap-6">
+                        <div className="flex-1 flex flex-col justify-center gap-6">
                             <motion.div
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -173,7 +173,7 @@ const BirthdayCard = () => {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 1.2 }}
-                                className="mt-4 text-center"
+                                className="mt-4 text-left"
                             >
                                 <p className="text-sm md:text-base text-love-900 font-medium leading-relaxed font-serif italic">
                                     "On your special day, I just want to remind you how incredibly loved you are. You bring so much joy, warmth, and laughter into my life. Here's to celebrating you today and always. I love you! 💕"
