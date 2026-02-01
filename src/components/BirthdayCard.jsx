@@ -167,6 +167,18 @@ const BirthdayCard = () => {
                                     "{captions[currentImage % captions.length]}"
                                 </motion.div>
                             </AnimatePresence>
+
+                            {/* Static Love Letter / Wish Section */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 1.2 }}
+                                className="mt-4 p-4 bg-white/50 rounded-lg border border-love-100 shadow-sm"
+                            >
+                                <p className="text-sm md:text-base text-love-800 font-medium leading-relaxed font-serif">
+                                    "On your special day, I just want to remind you how incredibly loved you are. You bring so much joy, warmth, and laughter into my life. Here's to celebrating you today and always. I love you! 💕"
+                                </p>
+                            </motion.div>
                         </div>
 
                         {/* Signature - Bottom Right */}

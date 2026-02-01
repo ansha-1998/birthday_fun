@@ -6,7 +6,6 @@ const QuestionCard = ({ question, onYes }) => {
     const [noBtnPosition, setNoBtnPosition] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
 
-    const [text, setText] = useState("No");
     const [style, setStyle] = useState({});
     const noBtnRef = useRef(null);
 
@@ -14,7 +13,6 @@ const QuestionCard = ({ question, onYes }) => {
     React.useEffect(() => {
         setNoBtnPosition({ x: 0, y: 0 });
         setStyle({});
-        setText("No");
     }, [question]);
 
     const moveNoButton = (e) => {
@@ -74,8 +72,6 @@ const QuestionCard = ({ question, onYes }) => {
 
         // Reset old pos state just in case
         setNoBtnPosition({ x: 0, y: 0 });
-
-        setText(["Nope! 😂", "Can't catch me! 😝", "Too slow! 🐌", "Nice try! 😉"][Math.floor(Math.random() * 4)]);
     };
 
     return (
@@ -120,18 +116,14 @@ const QuestionCard = ({ question, onYes }) => {
                     ref={noBtnRef}
                     animate={style.position === 'fixed' ? { left: style.left, top: style.top } : { x: 0 }}
                     style={style.position === 'fixed' ? { position: 'fixed', margin: 0 } : {}}
-                    whileHover={{
-                        scale: 1.2,
-                        rotate: [0, -20, 20, -20, 20, 0], // Laughing wiggle
-                        transition: { duration: 0.5 }
-                    }}
-                    transition={{ type: "spring", stiffness: 200, damping: 20 }} // Slightly higher damping for "slipping" feel
+                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
                     onMouseEnter={moveNoButton}
                     onTouchStart={moveNoButton}
                     onClick={moveNoButton}
-                    className={`bg-gray-400 text-white font-bold py-3 px-8 rounded-full shadow-lg z-50 min-w-[120px] whitespace-nowrap ${style.position !== 'fixed' ? 'absolute right-20' : ''}`}
+                    className="bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors text-xl flex items-center gap-2 z-50 whitespace-nowrap"
                 >
-                    {text}
+                    <Heart size={20} className="fill-current" />
+                    No
                 </motion.button>
             </div>
         </motion.div>
