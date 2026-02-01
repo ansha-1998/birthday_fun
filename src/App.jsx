@@ -16,25 +16,15 @@ const pastelGradients = [
 ];
 
 const HeartProgressBar = ({ total, filled }) => (
-  <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-50">
-    <div className="bg-white/20 backdrop-blur-sm p-3 rounded-full shadow-lg border border-white/30 hidden md:flex flex-col gap-3">
+  <div className="fixed right-4 top-4 md:right-8 md:top-8 flex flex-col gap-4 z-50">
+    <div className="bg-white/20 backdrop-blur-sm p-3 rounded-full shadow-lg border border-white/30 flex flex-col gap-3">
       {[...Array(total)].map((_, i) => (
         <div key={i} className="relative">
           <Heart
             size={24}
-            className={`transition-all duration-500 ${i < filled ? 'fill-love-500 text-love-500 scale-110' : 'text-white/60 scale-100'}`}
+            className={`transition-all duration-500 ${i < filled ? 'fill-love-500 text-love-500 scale-110 drop-shadow-[0_0_10px_rgba(236,72,153,0.5)]' : 'text-white/60 scale-100'}`}
           />
         </div>
-      ))}
-    </div>
-    {/* Mobile view: Horizontal top bar */}
-    <div className="md:hidden fixed top-4 right-4 flex gap-1 bg-white/20 backdrop-blur-sm p-2 rounded-full">
-      {[...Array(total)].map((_, i) => (
-        <Heart
-          key={i}
-          size={16}
-          className={`transition-all duration-500 ${i < filled ? 'fill-love-500 text-love-500' : 'text-white/60'}`}
-        />
       ))}
     </div>
   </div>
@@ -89,7 +79,9 @@ function App() {
   return (
     <div className={`relative w-full h-screen ${pastelGradients[currentQuestionIndex % pastelGradients.length]} transition-colors duration-1000 overflow-hidden flex items-center justify-center font-['Playfair_Display']`}>
 
-      <HeartProgressBar total={questions.length} filled={currentQuestionIndex + (isFinished ? 1 : 0)} />
+      {/* Progress Bar: Filled based on current index + 1 if we are celebrating or finished */}
+      <HeartProgressBar total={questions.length} filled={currentQuestionIndex + (showCongrats || isFinished ? 1 : 0)} />
+
       <CongratsOverlay isVisible={showCongrats} message={congratsMsg} />
 
       {/* Moving Hearts Background */}
@@ -116,12 +108,15 @@ function App() {
 
       <div className="relative z-10 w-full flex justify-center p-4">
         {!isFinished ? (
-          <QuestionCard
-            key={currentQuestionIndex}
-            question={questions[currentQuestionIndex].text}
-            index={currentQuestionIndex}
-            onYes={handleYes}
-          />
+          // Hide QuestionCard when showing congrats
+          !showCongrats && (
+            <QuestionCard
+              key={currentQuestionIndex}
+              question={questions[currentQuestionIndex].text}
+              index={currentQuestionIndex}
+              onYes={handleYes}
+            />
+          )
         ) : (
           !isCardOpened ? (
             <div className="text-center">
