@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Heart } from 'lucide-react';
 
 const QuestionCard = ({ question, onYes }) => {
@@ -7,6 +7,7 @@ const QuestionCard = ({ question, onYes }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const [style, setStyle] = useState({});
+    const [isRunning, setIsRunning] = useState(false);
     const noBtnRef = useRef(null);
 
     // Reset button state when question changes
@@ -16,6 +17,9 @@ const QuestionCard = ({ question, onYes }) => {
     }, [question]);
 
     const moveNoButton = (e) => {
+        setIsRunning(true);
+        setTimeout(() => setIsRunning(false), 500);
+
         const btn = noBtnRef.current;
         if (!btn) return;
 
@@ -121,8 +125,31 @@ const QuestionCard = ({ question, onYes }) => {
                     onMouseEnter={moveNoButton}
                     onTouchStart={moveNoButton}
                     onClick={moveNoButton}
-                    className="bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors text-xl flex items-center gap-2 z-50 whitespace-nowrap"
+                    className="bg-love-500 hover:bg-love-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-colors text-xl flex items-center gap-2 z-50 whitespace-nowrap relative"
                 >
+                    {/* Animated Cartoon Legs */}
+                    <AnimatePresence>
+                        {isRunning && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex gap-1 justify-center -z-10"
+                            >
+                                <motion.div
+                                    className="w-1.5 h-6 bg-black rounded-full origin-top"
+                                    animate={{ rotate: [0, 45, -45, 0], height: [24, 20, 24] }}
+                                    transition={{ duration: 0.15, repeat: Infinity }}
+                                />
+                                <motion.div
+                                    className="w-1.5 h-6 bg-black rounded-full origin-top"
+                                    animate={{ rotate: [0, -45, 45, 0], height: [24, 20, 24] }}
+                                    transition={{ duration: 0.15, repeat: Infinity, delay: 0.07 }}
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
                     <Heart size={20} className="fill-current" />
                     No
                 </motion.button>
