@@ -132,28 +132,37 @@ const QuestionCard = ({ question, onYes }) => {
                     <AnimatePresence>
                         {isRunning && (
                             <motion.div
-                                initial={{ opacity: 1, y: -10, scale: 0 }}
-                                animate={{ opacity: 1, y: 15, scale: 1 }}
+                                initial={{ opacity: 1, y: -20, scale: 0.5 }}
+                                animate={{ opacity: 1, y: 10, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0 }}
-                                className="absolute top-[60%] left-1/2 -translate-x-1/2 flex gap-4 justify-center -z-10"
-                                style={{ pointerEvents: 'none' }}
+                                className="absolute top-[55%] left-1/2 -translate-x-1/2 -z-10 pointer-events-none"
                             >
-                                <motion.div
-                                    className="w-2 h-10 bg-black rounded-full origin-top"
-                                    animate={{
-                                        rotate: [0, 30, -30, 0],
-                                        height: [40, 35, 40]
-                                    }}
-                                    transition={{ duration: 0.3, repeat: Infinity }}
-                                />
-                                <motion.div
-                                    className="w-2 h-10 bg-black rounded-full origin-top"
-                                    animate={{
-                                        rotate: [0, -30, 30, 0],
-                                        height: [40, 35, 40]
-                                    }}
-                                    transition={{ duration: 0.3, repeat: Infinity, delay: 0.15 }}
-                                />
+                                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    {/* Left Leg */}
+                                    <motion.path
+                                        d="M25 5 L25 45 L10 45"
+                                        stroke="black"
+                                        strokeWidth="4"
+                                        strokeLinecap="round"
+                                        fill="none"
+                                        initial={{ rotate: 0 }}
+                                        animate={{ rotate: [0, 30, -30, 0] }}
+                                        transition={{ duration: 0.3, repeat: Infinity, ease: "linear" }}
+                                        style={{ originX: "25px", originY: "5px" }}
+                                    />
+                                    {/* Right Leg */}
+                                    <motion.path
+                                        d="M35 5 L35 45 L50 45"
+                                        stroke="black"
+                                        strokeWidth="4"
+                                        strokeLinecap="round"
+                                        fill="none"
+                                        initial={{ rotate: 0 }}
+                                        animate={{ rotate: [0, -30, 30, 0] }}
+                                        transition={{ duration: 0.3, repeat: Infinity, ease: "linear", delay: 0.15 }}
+                                        style={{ originX: "35px", originY: "5px" }}
+                                    />
+                                </svg>
                             </motion.div>
                         )}
                     </AnimatePresence>
