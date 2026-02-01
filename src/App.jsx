@@ -16,7 +16,14 @@ const pastelGradients = [
 ];
 
 const HeartProgressBar = ({ total, filled }) => (
-  <div className="fixed top-6 right-6 z-50">
+  <div
+    className="z-[9999]"
+    style={{
+      position: 'fixed',
+      top: '20px',
+      right: '20px'
+    }}
+  >
     <div className="bg-white/30 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/40 flex flex-row gap-2">
       {[...Array(total)].map((_, i) => (
         <div key={i} className="relative">
