@@ -3,7 +3,16 @@ import { questions } from './questions';
 import QuestionCard from './components/QuestionCard';
 import BirthdayCard from './components/BirthdayCard';
 import Balloon from './components/Balloon';
+import CustomHeart from './components/CustomHeart';
 import { Heart } from 'lucide-react';
+
+const pastelGradients = [
+  "bg-gradient-to-br from-rose-100 via-pink-200 to-orange-100",
+  "bg-gradient-to-br from-blue-100 via-sky-200 to-cyan-100",
+  "bg-gradient-to-br from-violet-100 via-purple-200 to-fuchsia-100",
+  "bg-gradient-to-br from-green-100 via-emerald-200 to-teal-100",
+  "bg-gradient-to-br from-yellow-100 via-amber-200 to-orange-100"
+];
 
 
 function App() {
@@ -23,7 +32,20 @@ function App() {
   const backgroundHearts = Array(20).fill(null);
 
   return (
-    <div className="relative w-full h-screen bg-gradient-to-br from-purple-900 via-pink-700 to-red-500 overflow-hidden flex items-center justify-center font-['Playfair_Display']">
+    <div className={`relative w-full h-screen ${pastelGradients[currentQuestionIndex % pastelGradients.length]} transition-colors duration-1000 overflow-hidden flex items-center justify-center font-['Playfair_Display']`}>
+
+      {/* Moving Hearts Background */}
+      {[...Array(20)].map((_, i) => (
+        <CustomHeart
+          key={`global-heart-${i}`}
+          delay={i * 1.5}
+          style={{
+            left: `${Math.random() * 100}%`,
+            transform: `scale(${Math.random() * 0.5 + 0.8})`
+          }}
+        />
+      ))}
+
       {/* Moving Balloons Background */}
       {[...Array(15)].map((_, i) => (
         <Balloon

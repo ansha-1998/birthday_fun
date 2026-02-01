@@ -118,6 +118,13 @@ const QuestionCard = ({ question, onYes, index }) => {
         setNoBtnPosition({ x: 0, y: 0 });
     };
 
+    const getFontSize = (text) => {
+        const len = text?.length || 0;
+        if (len < 20) return "text-5xl md:text-7xl";
+        if (len < 40) return "text-4xl md:text-6xl";
+        return "text-3xl md:text-5xl";
+    };
+
     return (
         <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
@@ -141,11 +148,11 @@ const QuestionCard = ({ question, onYes, index }) => {
                 </div>
             </div>
 
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-16 leading-tight drop-shadow-lg" style={{ fontFamily: 'Great Vibes, cursive' }}>
+            <h2 className={`${getFontSize(question)} font-bold text-white mb-20 leading-tight drop-shadow-lg transition-all duration-300`} style={{ fontFamily: 'Great Vibes, cursive' }}>
                 {question}
             </h2>
 
-            <div className="flex justify-center gap-32 relative z-10 min-h-[80px]">
+            <div className="flex justify-center gap-48 relative z-10 min-h-[80px]">
                 {/* YES BUTTON */}
                 <motion.button
                     // Logic: If trick question, this button runs away. Otherwise standard.
