@@ -152,7 +152,7 @@ const QuestionCard = ({ question, onYes, index }) => {
                 {question}
             </h2>
 
-            <div className="flex justify-center gap-16 md:gap-60 relative z-10 min-h-[80px]">
+            <div className="flex justify-center gap-20 md:gap-80 relative z-10 min-h-[80px]">
                 {/* YES BUTTON */}
                 <motion.button
                     // Logic: If trick question, this button runs away. Otherwise standard.

@@ -29,7 +29,10 @@ const HeartProgressBar = ({ total, filled }) => (
         <div key={i} className="relative">
           <Heart
             size={28}
-            className={`transition-all duration-500 ${i < filled ? 'fill-red-500 text-red-500 scale-125 drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]' : 'text-white/70 scale-100'}`}
+            fill={i < filled ? '#EF4444' : 'none'}
+            stroke={i < filled ? '#EF4444' : 'rgba(255,255,255,0.7)'}
+            strokeWidth={2}
+            className={`transition-all duration-500 ${i < filled ? 'scale-125 drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]' : 'scale-100'}`}
           />
         </div>
       ))}
