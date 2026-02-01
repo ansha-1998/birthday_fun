@@ -92,7 +92,7 @@ const BirthdayCard = () => {
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="w-full max-w-6xl h-full md:h-[85vh] bg-[#E0F7FA] shadow-2xl relative flex flex-col md:flex-row overflow-hidden border-2 border-cyan-200"
+                    className="w-full max-w-6xl h-full md:h-[85vh] bg-[#E0F7FA] shadow-2xl relative flex flex-col overflow-hidden border-2 border-cyan-200"
                     style={{
                         backgroundImage: 'repeating-linear-gradient(#E0F7FA 0px, #E0F7FA 24px, #B2EBF2 25px)'
                     }}
@@ -101,11 +101,10 @@ const BirthdayCard = () => {
                     <div className="absolute top-0 w-full h-6 bg-[#B2EBF2] border-b border-dashed border-cyan-400 opacity-60"></div>
                     <div className="absolute bottom-0 w-full h-6 bg-[#B2EBF2] border-t border-dashed border-cyan-400 opacity-60"></div>
 
-                    {/* Left Side: Photos (The "Enclosure") */}
-                    {/* Left Side: Photos (The "Enclosure") - Now 75% Width */}
-                    <div className="w-full md:w-[75%] h-1/2 md:h-full relative p-4 flex items-center justify-center border-b-2 md:border-b-0 md:border-r-2 border-dashed border-cyan-400 bg-[#E0F7FA]">
+                    {/* Top Side: Photos (The "Enclosure") - 75% Height */}
+                    <div className="w-full h-[75%] relative p-6 flex items-center justify-center border-b-2 border-dashed border-cyan-400 bg-[#E0F7FA]">
                         {/* Photo Frame Effect */}
-                        <div className="relative w-full h-full max-h-[600px] bg-white p-3 shadow-lg rotate-1 transform transition-transform hover:rotate-0">
+                        <div className="relative w-full h-full max-w-4xl bg-white p-3 shadow-lg rotate-1 transform transition-transform hover:rotate-0">
                             <div className="w-full h-full overflow-hidden bg-gray-100 relative">
                                 <AnimatePresence mode='wait'>
                                     <motion.img
@@ -126,30 +125,20 @@ const BirthdayCard = () => {
                         </div>
                     </div>
 
-                    {/* Right Side: The Letter Content (Handwritten style) */}
-                    {/* Right Side: The Letter Content (Handwritten style) - Now 25% Width */}
-                    <div className="w-full md:w-[25%] h-1/2 md:h-full p-4 relative flex flex-col justify-center bg-[#E0F7FA]">
+                    {/* Bottom Side: The Letter Content - 25% Height */}
+                    <div className="w-full h-[25%] p-4 relative flex flex-row items-center justify-between bg-[#E0F7FA]">
 
-                        {/* Stamp Area (Top Right Corner) */}
-                        {/* Stamp Area - Scaled down for narrower column */}
-                        <div className="absolute top-4 right-4 flex flex-col items-center opacity-70 rotate-6 scale-75 origin-top-right">
-                            <div className="w-20 h-24 border-4 border-dotted border-red-800 p-2 flex items-center justify-center">
-                                <Stamp className="text-red-800 w-12 h-12" />
-                            </div>
-                            <span className="text-xs font-mono text-red-800 mt-1">VIA AIR MAIL</span>
-                        </div>
-
-                        {/* Letter Body - Compact for narrow column */}
-                        <div className="mt-12 flex-1 flex flex-col justify-center gap-4">
+                        {/* Letter Content */}
+                        <div className="flex-1 flex flex-col justify-center gap-2 pl-4">
                             <motion.div
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.5 }}
                             >
-                                <h2 className="text-xl md:text-2xl font-bold text-blue-900 font-[Cursive,seriff] mb-1" style={{ fontFamily: 'Brush Script MT, cursive' }}>
+                                <h2 className="text-xl font-bold text-blue-900 font-[Cursive,seriff] inline-block mr-2" style={{ fontFamily: 'Brush Script MT, cursive' }}>
                                     Dearest Love,
                                 </h2>
-                                <h1 className="text-2xl md:text-3xl font-extrabold text-[#D32F2F] drop-shadow-sm mb-4" style={{ fontFamily: 'Georgia, serif' }}>
+                                <h1 className="text-2xl font-extrabold text-[#D32F2F] inline-block" style={{ fontFamily: 'Georgia, serif' }}>
                                     Happy Birthday! ❤️
                                 </h1>
                             </motion.div>
@@ -161,7 +150,7 @@ const BirthdayCard = () => {
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
                                     transition={{ duration: 0.5 }}
-                                    className="text-lg md:text-xl text-slate-800 leading-snug italic"
+                                    className="text-lg text-slate-800 leading-snug italic max-w-3xl"
                                     style={{ fontFamily: '"Comic Sans MS", "Chalkboard SE", sans-serif' }}
                                 >
                                     "{captions[currentImage % captions.length]}"
@@ -169,10 +158,19 @@ const BirthdayCard = () => {
                             </AnimatePresence>
                         </div>
 
-                        {/* Footer / Signature */}
-                        <div className="mt-8 text-right">
-                            <p className="text-blue-800 font-medium text-lg">Yours Forever,</p>
-                            <p className="text-blue-900 font-bold text-xl" style={{ fontFamily: 'Brush Script MT, cursive' }}>Ansha</p>
+                        {/* Signature & Stamp */}
+                        <div className="flex items-center gap-6 pr-4">
+                            <div className="text-right">
+                                <p className="text-blue-800 font-medium text-sm">Yours Forever,</p>
+                                <p className="text-blue-900 font-bold text-lg" style={{ fontFamily: 'Brush Script MT, cursive' }}>Ansha</p>
+                            </div>
+
+                            <div className="flex flex-col items-center opacity-70 rotate-6 transform scale-75">
+                                <div className="w-16 h-20 border-4 border-dotted border-red-800 p-1 flex items-center justify-center">
+                                    <Stamp className="text-red-800 w-8 h-8" />
+                                </div>
+                                <span className="text-[10px] font-mono text-red-800 mt-1">VIA AIR MAIL</span>
+                            </div>
                         </div>
 
                     </div>
