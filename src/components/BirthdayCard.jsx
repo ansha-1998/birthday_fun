@@ -72,7 +72,7 @@ const BirthdayCard = () => {
 
     return createPortal(
         <div className="fixed top-0 left-0 w-full h-full bg-love-50 flex flex-col z-[9999] overflow-hidden">
-            <audio ref={audioRef} src="/song.mp3" loop />
+            <audio ref={audioRef} src={`${import.meta.env.BASE_URL}song.mp3`} loop />
 
             {[...Array(20)].map((_, i) => (
                 <CustomHeart
@@ -105,7 +105,7 @@ const BirthdayCard = () => {
                     <AnimatePresence mode='wait'>
                         <motion.img
                             key={currentImage}
-                            src={`/images/${currentImage + 1}.jpeg`}
+                            src={`${import.meta.env.BASE_URL}images/${currentImage + 1}.jpeg`}
                             alt={`Memory ${currentImage + 1}`}
                             initial={{ opacity: 0, scale: 1.1 }}
                             animate={{ opacity: 1, scale: 1 }}
