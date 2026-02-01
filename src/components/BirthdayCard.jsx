@@ -92,7 +92,7 @@ const BirthdayCard = () => {
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="w-full max-w-6xl h-full md:h-[85vh] bg-[#E0F7FA] shadow-2xl relative flex flex-col overflow-hidden border-2 border-cyan-200"
+                    className="w-full max-w-7xl h-full md:h-[85vh] bg-[#E0F7FA] shadow-2xl relative flex flex-row overflow-hidden border-2 border-cyan-200"
                     style={{
                         backgroundImage: 'repeating-linear-gradient(#E0F7FA 0px, #E0F7FA 24px, #B2EBF2 25px)'
                     }}
@@ -101,10 +101,10 @@ const BirthdayCard = () => {
                     <div className="absolute top-0 w-full h-6 bg-[#B2EBF2] border-b border-dashed border-cyan-400 opacity-60"></div>
                     <div className="absolute bottom-0 w-full h-6 bg-[#B2EBF2] border-t border-dashed border-cyan-400 opacity-60"></div>
 
-                    {/* Top Side: Photos (The "Enclosure") - 75% Height */}
-                    <div className="w-full h-[75%] relative p-6 flex items-center justify-center border-b-2 border-dashed border-cyan-400 bg-[#E0F7FA]">
+                    {/* Left Side: Photos (The "Enclosure") - 75% Width */}
+                    <div className="w-[75%] h-full relative p-6 flex items-center justify-center border-r-2 border-dashed border-cyan-400 bg-[#E0F7FA]">
                         {/* Photo Frame Effect */}
-                        <div className="relative w-full h-full max-w-4xl bg-white p-3 shadow-lg rotate-1 transform transition-transform hover:rotate-0">
+                        <div className="relative w-full h-full max-h-[700px] bg-white p-4 shadow-lg rotate-1 transform transition-transform hover:rotate-0">
                             <div className="w-full h-full overflow-hidden bg-gray-100 relative">
                                 <AnimatePresence mode='wait'>
                                     <motion.img
