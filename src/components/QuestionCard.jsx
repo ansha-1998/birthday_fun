@@ -124,9 +124,9 @@ const QuestionCard = ({ question, onYes, index }) => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-white/30 backdrop-blur-md p-8 rounded-2xl shadow-xl max-w-md w-full text-center border-4 border-love-300 relative"
+            className="max-w-3xl w-full text-center relative z-20"
         >
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-love-300 via-love-500 to-love-300" />
+            {/* Removed internal decoration, using main background */}
 
             <div className="mb-8 flex justify-center">
                 <div className="relative">
@@ -141,11 +141,11 @@ const QuestionCard = ({ question, onYes, index }) => {
                 </div>
             </div>
 
-            <h2 className="text-3xl font-bold text-gray-800 mb-8 leading-tight font-[Inter]">
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-16 leading-tight drop-shadow-lg" style={{ fontFamily: 'Great Vibes, cursive' }}>
                 {question}
             </h2>
 
-            <div className="flex justify-center gap-8 relative z-10 min-h-[60px]">
+            <div className="flex justify-center gap-32 relative z-10 min-h-[80px]">
                 {/* YES BUTTON */}
                 <motion.button
                     // Logic: If trick question, this button runs away. Otherwise standard.

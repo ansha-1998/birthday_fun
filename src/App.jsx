@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { questions } from './questions';
 import QuestionCard from './components/QuestionCard';
 import BirthdayCard from './components/BirthdayCard';
-import CustomHeart from './components/CustomHeart';
+import Balloon from './components/Balloon';
 import { Heart } from 'lucide-react';
+
 
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -22,16 +23,14 @@ function App() {
   const backgroundHearts = Array(20).fill(null);
 
   return (
-    <div className="relative w-full h-screen bg-love-100 overflow-hidden flex items-center justify-center">
-      {/* Global Background Custom Hearts */}
+    <div className="relative w-full h-screen bg-gradient-to-br from-purple-900 via-pink-700 to-red-500 overflow-hidden flex items-center justify-center font-['Playfair_Display']">
+      {/* Moving Balloons Background */}
       {[...Array(15)].map((_, i) => (
-        <CustomHeart
-          key={`global-heart-${i}`}
+        <Balloon
+          key={`balloon-${i}`}
           delay={i * 2}
-          style={{
-            left: `${Math.random() * 100}%`,
-            transform: `scale(${Math.random() * 0.5 + 0.8})`
-          }}
+          color={['#FF69B4', '#87CEEB', '#FFD700', '#DDA0DD', '#98FB98'][i % 5]}
+          left={`${Math.random() * 100}%`}
         />
       ))}
 
