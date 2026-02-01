@@ -132,27 +132,27 @@ const QuestionCard = ({ question, onYes }) => {
                     <AnimatePresence>
                         {isRunning && (
                             <motion.div
-                                initial={{ opacity: 1, y: -20, scale: 0 }}
-                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                initial={{ opacity: 1, y: -10, scale: 0 }}
+                                animate={{ opacity: 1, y: 15, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0 }}
-                                className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-2 justify-center"
-                                style={{ pointerEvents: 'none' }} // Ensure clicks go through to button if needed, though button moves
+                                className="absolute top-[60%] left-1/2 -translate-x-1/2 flex gap-4 justify-center -z-10"
+                                style={{ pointerEvents: 'none' }}
                             >
                                 <motion.div
-                                    className="w-2 h-8 bg-black rounded-full origin-top border-2 border-white/20"
+                                    className="w-2 h-10 bg-black rounded-full origin-top"
                                     animate={{
-                                        rotate: [0, 60, -60, 0],
-                                        height: [32, 24, 32]
+                                        rotate: [0, 30, -30, 0],
+                                        height: [40, 35, 40]
                                     }}
-                                    transition={{ duration: 0.1, repeat: Infinity }}
+                                    transition={{ duration: 0.3, repeat: Infinity }}
                                 />
                                 <motion.div
-                                    className="w-2 h-8 bg-black rounded-full origin-top border-2 border-white/20"
+                                    className="w-2 h-10 bg-black rounded-full origin-top"
                                     animate={{
-                                        rotate: [0, -60, 60, 0],
-                                        height: [32, 24, 32]
+                                        rotate: [0, -30, 30, 0],
+                                        height: [40, 35, 40]
                                     }}
-                                    transition={{ duration: 0.1, repeat: Infinity, delay: 0.05 }}
+                                    transition={{ duration: 0.3, repeat: Infinity, delay: 0.15 }}
                                 />
                             </motion.div>
                         )}
