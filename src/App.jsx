@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { questions } from './questions';
 import QuestionCard from './components/QuestionCard';
 import BirthdayCard from './components/BirthdayCard';
@@ -14,18 +15,72 @@ const pastelGradients = [
   "bg-gradient-to-br from-yellow-200 via-amber-300 to-orange-200"
 ];
 
+const HeartProgressBar = ({ total, filled }) => (
+  <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-50">
+    <div className="bg-white/20 backdrop-blur-sm p-3 rounded-full shadow-lg border border-white/30 hidden md:flex flex-col gap-3">
+      {[...Array(total)].map((_, i) => (
+        <div key={i} className="relative">
+          <Heart
+            size={24}
+            className={`transition-all duration-500 ${i < filled ? 'fill-love-500 text-love-500 scale-110' : 'text-white/60 scale-100'}`}
+          />
+        </div>
+      ))}
+    </div>
+    {/* Mobile view: Horizontal top bar */}
+    <div className="md:hidden fixed top-4 right-4 flex gap-1 bg-white/20 backdrop-blur-sm p-2 rounded-full">
+      {[...Array(total)].map((_, i) => (
+        <Heart
+          key={i}
+          size={16}
+          className={`transition-all duration-500 ${i < filled ? 'fill-love-500 text-love-500' : 'text-white/60'}`}
+        />
+      ))}
+    </div>
+  </div>
+);
+
+const CongratsOverlay = ({ isVisible, message }) => (
+  <AnimatePresence>
+    {isVisible && (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.5 }}
+        className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
+      >
+        <div className="bg-white/90 backdrop-blur-md p-8 md:p-12 rounded-3xl shadow-2xl border-4 border-love-300 transform rotate-[-2deg]">
+          <h2 className="text-3xl md:text-5xl font-bold text-love-600 font-['Playfair_Display'] text-center drop-shadow-md">
+            🎉 {message}
+          </h2>
+        </div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
 
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [isCardOpened, setIsCardOpened] = useState(false);
+  const [showCongrats, setShowCongrats] = useState(false);
+  const [congratsMsg, setCongratsMsg] = useState("");
 
   const handleYes = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(prev => prev + 1);
-    } else {
-      setIsFinished(true);
-    }
+    // Show Congrats
+    const msg = questions[currentQuestionIndex].congratsMessage || "Correct Answer! 🎉";
+    setCongratsMsg(msg);
+    setShowCongrats(true);
+
+    // Wait before advancing
+    setTimeout(() => {
+      setShowCongrats(false);
+      if (currentQuestionIndex < questions.length - 1) {
+        setCurrentQuestionIndex(prev => prev + 1);
+      } else {
+        setIsFinished(true);
+      }
+    }, 2000);
   };
 
   // Flying hearts background
@@ -33,6 +88,9 @@ function App() {
 
   return (
     <div className={`relative w-full h-screen ${pastelGradients[currentQuestionIndex % pastelGradients.length]} transition-colors duration-1000 overflow-hidden flex items-center justify-center font-['Playfair_Display']`}>
+
+      <HeartProgressBar total={questions.length} filled={currentQuestionIndex + (isFinished ? 1 : 0)} />
+      <CongratsOverlay isVisible={showCongrats} message={congratsMsg} />
 
       {/* Moving Hearts Background */}
       {[...Array(20)].map((_, i) => (
