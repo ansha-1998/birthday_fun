@@ -113,6 +113,7 @@ const QuestionCard = ({ question, onYes }) => {
                 </motion.button>
 
                 <motion.button
+                    key={`no-btn-${question}`}
                     ref={noBtnRef}
                     animate={style.position === 'fixed' ? { left: style.left, top: style.top } : { x: 0 }}
                     style={style.position === 'fixed' ? { position: 'fixed', margin: 0 } : {}}
