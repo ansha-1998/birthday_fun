@@ -59,9 +59,12 @@ const CongratsOverlay = ({ isVisible, message }) => (
   </AnimatePresence>
 );
 
+import SpinWheel from './components/SpinWheel';
+
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
+  const [showSpinWheel, setShowSpinWheel] = useState(false);
   const [isCardOpened, setIsCardOpened] = useState(false);
   const [showCongrats, setShowCongrats] = useState(false);
   const [congratsMsg, setCongratsMsg] = useState("");
@@ -78,7 +81,8 @@ function App() {
       if (currentQuestionIndex < questions.length - 1) {
         setCurrentQuestionIndex(prev => prev + 1);
       } else {
-        setIsFinished(true);
+        // Instead of finishing immediately, we go to spin wheel
+        setShowSpinWheel(true);
       }
     }, 2000);
   };
@@ -117,7 +121,7 @@ function App() {
       ))}
 
       <div className="relative z-10 w-full flex justify-center p-4">
-        {!isFinished ? (
+        {!isFinished && !showSpinWheel ? (
           // Hide QuestionCard when showing congrats
           !showCongrats && (
             <QuestionCard
@@ -126,6 +130,13 @@ function App() {
               index={currentQuestionIndex}
               onYes={handleYes}
             />
+          )
+        ) : showSpinWheel ? (
+          !showCongrats && (
+            <SpinWheel onComplete={() => {
+              setShowSpinWheel(false);
+              setIsFinished(true);
+            }} />
           )
         ) : (
           !isCardOpened ? (
