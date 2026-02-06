@@ -40,8 +40,8 @@ const LegsAnimation = ({ isRunning }) => (
     </AnimatePresence>
 );
 
-const QuestionCard = ({ question, onYes, index }) => {
-    const isTrickQuestion = index === 1; // 2nd question (0-indexed)
+const QuestionCard = ({ question, onYes, isTrickQuestion }) => {
+    // const isTrickQuestion = index === 1; // Handled by prop now
     const [noBtnPosition, setNoBtnPosition] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
 

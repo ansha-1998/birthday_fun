@@ -1,27 +1,32 @@
 export const questions = [
     {
         id: 1,
-        text: "Do you think you are the prettiest?",
-        congratsMessage: "You know the truth! 😉"
+        text: "You got the best boy friend from the entire universe.",
+        congratsMessage: "He really is the best! 🌌",
+        isTricky: false
     },
     {
         id: 2,
-        text: "Do you want a gift?",
-        congratsMessage: "You are 100% correct here! 🎁"
+        text: "I know he loves me to the Moon and the back.",
+        congratsMessage: "To infinity and beyond! 🚀",
+        isTricky: false
     },
     {
         id: 3,
-        text: "I only want chakkrayumma",
-        congratsMessage: "Good choice! Chakkrayumma is best! 😘"
+        text: "Are you expecting a birthday gift?",
+        congratsMessage: "Oh really? 😉",
+        isTricky: true
     },
     {
         id: 4,
-        text: "I got the best BF in the world",
-        congratsMessage: "He really is the best! 🥇"
+        text: "Are you sure, you dont need any gift?",
+        congratsMessage: "Okay, if you say so... 😈",
+        isTricky: false
     },
     {
         id: 5,
-        text: "He loves you more than the moon and the stars",
-        congratsMessage: "To the moon and back! 🌙✨"
+        text: "Even though you said no, You know your Bf give you one?",
+        congratsMessage: "Of course he will! 🎁❤️",
+        isTricky: false
     }
 ];

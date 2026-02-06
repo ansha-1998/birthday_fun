@@ -15,30 +15,7 @@ const pastelGradients = [
   "bg-gradient-to-br from-yellow-200 via-amber-300 to-orange-200"
 ];
 
-const HeartProgressBar = ({ total, filled }) => (
-  <div
-    className="z-[9999]"
-    style={{
-      position: 'fixed',
-      top: '20px',
-      right: '20px'
-    }}
-  >
-    <div className="bg-white/30 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/40 flex flex-row gap-2">
-      {[...Array(total)].map((_, i) => (
-        <div key={i} className="relative">
-          <Heart
-            size={28}
-            fill={i < filled ? '#EF4444' : 'none'}
-            stroke={i < filled ? '#EF4444' : 'rgba(255,255,255,0.7)'}
-            strokeWidth={2}
-            className={`transition-all duration-500 ${i < filled ? 'scale-125 drop-shadow-[0_0_15px_rgba(239,68,68,0.8)]' : 'scale-100'}`}
-          />
-        </div>
-      ))}
-    </div>
-  </div>
-);
+// HeartProgressBar removed in favor of BigHeartProgress
 
 const CongratsOverlay = ({ isVisible, message }) => (
   <AnimatePresence>
@@ -59,12 +36,14 @@ const CongratsOverlay = ({ isVisible, message }) => (
   </AnimatePresence>
 );
 
+import BigHeartProgress from './components/BigHeartProgress';
 import SpinWheel from './components/SpinWheel';
 
 function App() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [showSpinWheel, setShowSpinWheel] = useState(false);
+  const [heartAnimationState, setHeartAnimationState] = useState('idle'); // idle, centering, blinking, done
   const [isCardOpened, setIsCardOpened] = useState(false);
   const [showCongrats, setShowCongrats] = useState(false);
   const [congratsMsg, setCongratsMsg] = useState("");
@@ -93,8 +72,12 @@ function App() {
   return (
     <div className={`relative w-full h-screen ${pastelGradients[currentQuestionIndex % pastelGradients.length]} transition-colors duration-1000 overflow-hidden flex items-center justify-center font-['Playfair_Display']`}>
 
-      {/* Progress Bar: Filled based on current index + 1 if we are celebrating or finished */}
-      <HeartProgressBar total={questions.length} filled={currentQuestionIndex + (showCongrats || isFinished ? 1 : 0)} />
+      {/* Replaces HeartProgressBar */}
+      <BigHeartProgress
+        total={questions.length}
+        progress={currentQuestionIndex + (showCongrats || isFinished || showSpinWheel ? 1 : 0)}
+        animationState={heartAnimationState}
+      />
 
       <CongratsOverlay isVisible={showCongrats} message={congratsMsg} />
 
@@ -121,25 +104,37 @@ function App() {
       ))}
 
       <div className="relative z-10 w-full flex justify-center p-4">
-        {!isFinished && !showSpinWheel ? (
+        {/* State 1: Quiz in progress */}
+        {!isFinished && !showSpinWheel && heartAnimationState === 'idle' ? (
           // Hide QuestionCard when showing congrats
           !showCongrats && (
             <QuestionCard
               key={currentQuestionIndex}
               question={questions[currentQuestionIndex].text}
+              isTrickQuestion={questions[currentQuestionIndex].isTricky}
               index={currentQuestionIndex}
               onYes={handleYes}
             />
           )
         ) : showSpinWheel ? (
+          // State 2: Spin Wheel
           !showCongrats && (
             <SpinWheel onComplete={() => {
+              // Finale Sequence: Open Card Immediately
               setShowSpinWheel(false);
               setIsFinished(true);
+              setIsCardOpened(true);
+
+              // Run Heart Animation as Overlay
+              setHeartAnimationState('centering');
+              setTimeout(() => setHeartAnimationState('blinking'), 1000);
+              setTimeout(() => setHeartAnimationState('done'), 3500);
             }} />
           )
         ) : (
+          // State 3: Finished (Card Phase) - Animation runs on top if active
           !isCardOpened ? (
+            // Fallback if needed, though we set isCardOpened to true above
             <div className="text-center">
               <button
                 onClick={() => setIsCardOpened(true)}
